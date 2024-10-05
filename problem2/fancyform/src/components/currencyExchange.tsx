@@ -10,7 +10,10 @@ import { FaArrowRightArrowLeft } from "react-icons/fa6";
 
 
 export default function CurrencyExchange() {
-  const EXCHANGE_RATE = 0.3; //From B is 0.3 of A 
+  // B is 0.3 of A 
+  // Fixed since there is no backend. 
+  // If there is backend, we can call it for exchange rates)
+  const EXCHANGE_RATE = 0.3;
   const [currencyA, setCurrencyA] = useState("AAVE");
   const [searchA, setSearchA] = useState("");
   const [dropdownWidth, setDropdownWidth] = useState(0);
