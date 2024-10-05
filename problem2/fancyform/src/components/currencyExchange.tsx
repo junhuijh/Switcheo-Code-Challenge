@@ -124,7 +124,7 @@ export default function CurrencyExchange() {
           && 
           <div className="bg-red-300 rounded-lg flex items-center justify-start space-x-1 my-2 text-2xl">
             <CiCircleAlert className="ml-2"/>
-            <div className="">Enter numbers!</div>
+            <div className="">{amountAError}</div>
           </div>
         }
       </div>
@@ -171,7 +171,7 @@ export default function CurrencyExchange() {
           && 
           <div className="bg-red-300 rounded-lg flex items-center justify-start space-x-1 my-2 text-2xl">
             <CiCircleAlert className="ml-2"/>
-            <div className="">Enter numbers!</div>
+            <div className="">{amountBError}</div>
           </div>
         }
       </div>
