@@ -14,9 +14,16 @@ export default function CurrencyExchange() {
   // Fixed since there is no backend. 
   // If there is backend, we can call it for exchange rates)
   const EXCHANGE_RATE = 0.3;
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })
+  const [dropdownWidth, setDropdownWidth] = useState(0);
+
   const [currencyA, setCurrencyA] = useState("AAVE");
   const [searchA, setSearchA] = useState("");
-  const [dropdownWidth, setDropdownWidth] = useState(0);
   const [amountA, setAmountA] = useState("");
   const [amountAError, setAmountAError] = useState("");
 
@@ -93,7 +100,7 @@ export default function CurrencyExchange() {
       {/* CurrencyA */}
       <div className="flex flex-col w-[40%]">
         <DropdownMenu onOpenChange={(open)=>handleDropdownOpenChange(open)}>
-        <DropdownMenuTrigger asChild className="border-white rounded-xl p-4 border-[1px]">
+        <DropdownMenuTrigger asChild className="border-white rounded-xl p-4 border-[1px] ">
             <div className="px-3" ref={triggerRef} ><CurrencyCard currency={currencyA}/></div>
           </DropdownMenuTrigger>
           <DropdownMenuContent 
@@ -115,9 +122,11 @@ export default function CurrencyExchange() {
             }))}
           </DropdownMenuContent>
         </DropdownMenu>
+        {amountA!=""?<div className="flex justify-center min-h-2 overflow-auto">{formatter.format(Number(amountA))}</div>:<div className="min-h-2"></div>}
+
 
         <Input 
-          className="mt-5 text-[5rem] h-auto" 
+          className="text-[5rem] h-auto" 
           onChange={(event)=>handleAmountAChange(event.target.value)}
           value={amountA}/>
         {amountAError!="" 
@@ -140,7 +149,7 @@ export default function CurrencyExchange() {
       {/* CurrencyB */}
       <div className="flex flex-col w-[40%]">
         <DropdownMenu onOpenChange={(open)=>handleDropdownOpenChange(open)}>
-        <DropdownMenuTrigger asChild className="border-white rounded-xl p-4 border-[1px]">
+        <DropdownMenuTrigger asChild className="border-white rounded-xl p-4 border-[1px] ">
             <div className="px-3" ref={triggerRef} ><CurrencyCard currency={currencyB}/></div>
           </DropdownMenuTrigger>
           <DropdownMenuContent 
@@ -162,9 +171,10 @@ export default function CurrencyExchange() {
             }))}
           </DropdownMenuContent>
         </DropdownMenu>
-
+        {amountB!=""?<div className="flex justify-center min-h-2 overflow-auto">{formatter.format(Number(amountB))}</div>:<div className="min-h-2"></div>}
+        
         <Input 
-          className="mt-5 text-[5rem] h-auto" 
+          className="text-[5rem] h-auto" 
           onChange={(event)=>handleAmountBChange(event.target.value)}
           value={amountB}/>
         {amountBError!="" 
