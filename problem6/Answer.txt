@@ -1,0 +1,38 @@
+Broadcast server should have
+1. API to receive transactions
+2. Transaction handler
+3. Blockchain broadcaster
+4. Storage interaction
+5. Web service to show status of transactions
+
+API
+Receives POST requests.
+Receives a JSON in the requests, with a variable "transactionData" which is an array of transactions
+Upon receiving the requests, it passes the data to the transaction handler with a callback function to check if the transaction is valid and store in database
+if all transactions are valid, sends status code 200 back to client, else send error status codes.
+
+Transaction handler (REST API)
+1. Upon receiving data from the API
+2. It checks if the data is a valid Transaction
+3. Signs the data
+4. Stores the transaction to the database with their status as "unprocessed"
+5. Does a callback to the API to notify whether the transactions are valid or not.
+6. Transaction handler passes the signed data to the Blockchain broadcaster.
+
+Blockchain broadcaster
+1. Contains array of Blockchains to broadcast to
+2. Receives signed data
+3. Loops through the array and does an RPC call to each of them
+4. For each transaction, they have a retry mechanism (exponential backoff?)
+5. If success, update the database to reflect that the status of the transaction is "success"
+6. else, update the database to reflect that the status of the transaction is "failed" and the reason for failure.
+
+Storage interaction
+1. Some way to connect to the database and store, update transactions and their status.
+
+Web service to show status of transactions
+1. some sort of dashboard
+2. calls the database for the transaction and their status
+3. displays it
+4. Has functionality to reattempt the transaction by calling the transaction handler (this time indicate that the data is signed and does not need to be signed again)
+
